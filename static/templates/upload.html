@@ -1,0 +1,13 @@
+<div id="my-id" uk-modal class="uk-modal-container">
+    <div class="uk-modal-dialog uk-modal-body">
+        <h4 class="uk-modal-title uk-text-center">Upload files to <span class="uk-text-primary">{{currentCont}}</span></h4>
+        <div class="uk-modal-body">
+          <ng-include src="'templates/dropzone.html'"></ng-include>
+        </div>
+        <div class="uk-position-right">
+          <button class="uk-modal-close uk-button uk-button-default" type="button"><span uk-icon="icon: close"></span></button>
+        </div>
+    </div>
+</div>
+
+<span ng-if="uploader.queue.length > 0">({{ uploader.queue.length }} processing)</span>

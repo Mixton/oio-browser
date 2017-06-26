@@ -12,26 +12,27 @@
     <script type='text/javascript' src='app/fileSize.filter.js'></script>
     <script type='text/javascript' src='app/dragleaveFix.directive.js'></script>
     <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="vendor/uikit.min.js"></script>
+    <script type="text/javascript" src="vendor/uikit-icons.min.js"></script>
     <script src="vendor/lightbox.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="static/vendor/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="static/vendor/uikit.min.css">
+    <!--link rel="stylesheet" type="text/css" href="static/vendor/bootstrap.min.css"-->
     <link href="vendor/lightbox.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body ng-app='oioBrowser' ng-controller='browserController' >
- 
+
 </div>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-3 sidebar">
-        <ng-include src="'templates/sidebar.html'"></ng-include>
-      </div>
-      <div class="col-md-9 main">
-        <!--<ng-include src="'templates/dropzone.html'"></ng-include>-->
-        <ng-include src="'templates/object-list.html'"></ng-include>
-      </div>
+  <div class="uk-grid">
+    <div class="uk-width-1-4 uk-tile-muted uk-card uk-height-viewport">
+      <ng-include src="'templates/sidebar.html'"></ng-include>
     </div>
-
-
+    <div class="uk-width-3-4 uk-card uk-height-viewport">
+      <!--<ng-include src="'templates/dropzone.html'"></ng-include>-->
+      <ng-include src="'templates/object-list.html'"></ng-include>
+    </div>
+  </div>
 </div>
 </body>
 </html>

@@ -1,12 +1,12 @@
-<div class="col-md-12 infoArea">
-  <div class="col-md-3 col-md-offset-9">
-    <form class="form-inline">
-      <div class="form-group pull-right">
-        <button class="btn btn-default pull-right" ng-click="doSearch(searchedObject.s)">
-          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+<div class="uk-grid uk-position-top-right">
+      <form class="uk-form-horizontal">
+        <div class="uk-inline">
+            <span class="uk-form-icon" uk-icon="icon: search"></span>
+            <input ng-model="searchedObject.s" class="uk-input" placeholder="search"></input>
+        </div>
+        <button class="uk-button uk-button-primary" ng-click="doSearch(searchedObject.s)"; didSearch=false;">Search</button>
+        <button x uk-toggle="target: #my-id" class="uk-button uk-button-secondary" type="button">
+          <span uk-icon="icon: upload"></span> Upload
         </button>
-        <input type="text" ng-model="searchedObject.s" class="form-control pull-right" placeholder="search" ng-click="searchedObject.s = ''; didSearch=false;"/>
-      </div>
-    </form>
-  </div>
+      </form>
 </div>

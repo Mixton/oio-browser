@@ -3,6 +3,8 @@ from oio.api.object_storage import ObjectStorageAPI
 import optparse
 import mimetypes
 from elasticsearch import Elasticsearch
+from flask import abort
+
 
 
 def parse():
@@ -135,6 +137,7 @@ def search_objects(cont, prefix):
     es = Elasticsearch([ELASTICSEARCH])
     query = []
     for pref in prefix.split(" "):
+        pref = pref.lower()
         if pref:
             regexp = {
                 'regexp': { 'properties.autocategory': '.*%s.*'%pref }
@@ -185,8 +188,11 @@ def list_objects(cont, marker=None, prefix=None):
     mimetypes.init()
     img_type = tuple(get_extensions_for_type('image'))
     video_type = tuple(get_extensions_for_type('video'))
-    res = API.object_list(ACCOUNT, cont, limit=10000, marker=marker,
-                          prefix=prefix, properties=True)
+    try:
+        res = API.object_list(ACCOUNT, cont, limit=10000, marker=marker,
+                              prefix=prefix, properties=True)
+    except Exception as e:
+        return abort(404)
     #res2 = {}
     i = 0
     for obj in res['objects']:
@@ -212,7 +218,7 @@ def list_objects(cont, marker=None, prefix=None):
         #res2 += obj
         i += 1
     #print res
-    
+
     return jsonify(**res)
 
 @app.route('/api/containers/<cont>/create')
@@ -224,8 +230,12 @@ def create_container(cont):
 @app.route('/api/containers/', methods=['GET'])
 @app.route('/api/containers', methods=['GET'])
 def list_containers(marker=None):
-    listing, info = API.container_list(ACCOUNT, limit=20, marker=marker)
-    return jsonify({'containers': listing, 'info': info})
+    try:
+        res = API.container_list(ACCOUNT, limit=200, marker=marker)
+    except:
+        return abort(404)
+    print res
+    return jsonify({'containers': res})
 
 
 if __name__ == "__main__":

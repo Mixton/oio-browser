@@ -1,35 +1,71 @@
-<div class="col-md-12 infoArea">
-  <ng-include src="'templates/searchbar.html'"></ng-include>
-</div>
-<ng-include src="'templates/dropzone.html'"></ng-include>
+<div class="uk-grid">
+    <div class="uk-width-1-1">
+      <ng-include src="'templates/searchbar.html'"></ng-include>
+    </div>
 
-<table ng-show="objects.length > 0" class="table table-striped">
-  <tr>
-    <th>Name</th>
-    <th>Preview</th>
-    <th>Faces</th>
-    <th>Category</th>
-    <th>Confidence</th>
-    <th>Size</th>
-    <th>&nbsp;</th>
-  </tr>
-  <tr ng-repeat='obj in objects'>
-    <td>{{obj.name}}</td>
-    <td ng-if="obj.image == true"><a href="{{preview(obj.name)}}" data-lightbox="collection" data-title="{{obj.name}}"><img src="{{preview(obj.name)}}" style="width:100px;"></a></td>
-    <td ng-if="obj.video == true">
-        <a href="{{preview(obj.name)}}" target="_blank">open</a>
-        <!-- <video width="160" height="120" controls autobuffer preload="auto"> -->
-           <!-- <source type="{{obj.mime_type}}" src="{{preview(obj.name)}}"> -->
-        <!-- </video> -->
-    </td>
-    <!-- <td ng-if="obj.other == true"><object data="{{preview(obj.name)}}" type="{{obj.mime_type}}" style="width:100px;height:200px;" autostart="false"></td> -->
-    <td ng-if="obj.other == true"></td>
-    <td>{{obj.properties.faces}}</td>
-    <td>{{obj.properties.autocategory}}</td>
-    <td>{{obj.properties.autocategoryconfidence}}</td>
-    <td>{{obj.size | filesize}}</td>
-    <td><a href="{{download(obj.name)}}" class="glyphicon glyphicon-download-alt" aria-hidden="true"></a></td>
-  </tr>
-</table>
-<div class="col-md-12 text-center" ng-show="(objects.length == 0 && searchedObject.s.length == 0)"><h3 class="lightgray">This container is empty</h3></div>
-<div class="col-md-12 text-center" ng-show="(objects.length == 0 && searchedObject.s.length > 0 && didSearch)"><h3 class="lightgray">No results</h3></div>
+    <ng-include src="'templates/upload.html'"></ng-include>
+
+  <div class="uk-width-1-1 uk-margin-medium-top uk-margin-medium-bottom">
+  <h4 class="uk-modal-title uk-text-center"><span class="uk-text-primary">{{currentCont}}</span></h4>
+  <table ng-show="objects.length > 0" class="uk-table uk-table-divider">
+    <tr>
+      <th>Name</th>
+      <th>Preview</th>
+      <th>Faces</th>
+      <th>Category</th>
+      <th>Confidence</th>
+      <th>Size</th>
+      <th>Link  </th>
+    </tr>
+    <tr ng-repeat='obj in objects track by $index'>
+      <td>{{obj.name}}</td>
+      <td ng-if="obj.image == true"><a href="{{preview(obj.name)}}" data-lightbox="collection" data-title="{{obj.name}}"><img src="{{preview(obj.name)}}" style="width:100px;"></a></td>
+      <!--<td ng-if="obj.image == true"><a href="{{preview(obj.name)}}" data-wk-lightbox="{group:'group'}" data-lightbox-type="image" title="{{obj.name}}"><img src="{{preview(obj.name)}}" style="width:100px;"></a></td>-->
+      <td ng-if="obj.video == true">
+          <a href="{{preview(obj.name)}}" data-wk-lightbox="{group:'group'}" data-lightbox-type="video" title="{{obj.name}}">open</a>
+          <!-- <video width="160" height="120" controls autobuffer preload="auto"> -->
+             <!-- <source type="{{obj.mime_type}}" src="{{preview(obj.name)}}"> -->
+          <!-- </video> -->
+      </td>
+      <!-- <td ng-if="obj.other == true"><object data="{{preview(obj.name)}}" type="{{obj.mime_type}}" style="width:100px;height:200px;" autostart="false"></td> -->
+      <td ng-if="obj.other == true"></td>
+      <td>{{obj.properties.faces}}</td>
+      <td>{{obj.properties.autocategory}}</td>
+      <td>{{obj.properties.autocategoryconfidence}}</td>
+      <td>{{obj.size | filesize}}</td>
+      <td><a href="{{download(obj.name)}}" uk-icon="icon: cloud-download" aria-hidden="true"></a></td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="uk-grid uk-position-center">
+    <div class="uk-padding">
+      <div ng-show="(objects.length == 0 && searchedObject.s.length == 0)">
+        <h3 class="uk-text-muted uk-text-center">This container is empty.</h3>
+        <p class="uk-text-muted uk-text-center">Uploaded files will appear here</p>
+      </div>
+      <div ng-show="(objects.length == 0 && searchedObject.s.length > 0 && didSearch)">
+        <h3 class="uk-text-muted">No results</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="uk-grid uk-position-bottom-center uk-margin">
+        <ul class="uk-pagination uk-flex-center">
+          <li class="uk-pagination-previous" ng-class="{'uk-disabled': currentPage==1}">
+            <a ng-click="repaginate(-1, true)">Previous</a>
+          </li>
+          <li ng-repeat="p in paginatorArray track by $index"
+              ng-class="{
+                'uk-active': currentPage==p,
+                'uk-disabled': p == '...'
+              }">
+            <a ng-click="repaginate(p)">{{p}}</a>
+          </li>
+          <li class="uk-pagination-next" ng-class="{'uk-disabled': currentPage==totalPages}">
+            <a ng-click="repaginate(1, true)">Next</a>
+          </li>
+        </ul>
+
+  </div>
+</div>

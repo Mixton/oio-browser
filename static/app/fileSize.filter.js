@@ -2,6 +2,7 @@ var app = angular.module("oioBrowser");
 
 app.filter('filesize', function() {
 	return function(input) {
+		if(!input) return "0 bytes"
     var current = -1;
     var units = ['bytes', 'kB', 'MB', 'GB', 'TB', 'PB'];
     while (current++ < units.length -1) {

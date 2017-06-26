@@ -1,13 +1,30 @@
-<h2 class="gray">OpenIO Browser</h2>
-<span class="divider"></span>
-<h3 class="gray">My containers</h3>
-<button class="btn btn-default " ng-click="createContainer(ccontainer.c)">
-          <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-</button>
-<input type="text" ng-model="ccontainer.c" class="form-control " placeholder="name" ng-click="ccontainer.c = ''; created=false;"/>
-<ul class="nav nav-pills nav-stacked">
-  <li ng-class="{'active': (cont[0] == currentCont)}"
-     ng-repeat='cont in containers'>
-      <a ng-click="changeCurrentContainer(cont[0])" class="oionav" href="#">{{cont[0]}} {{cont[1]}} files {{cont[2] | filesize}}</a>
-  </li>
-</ul>
+<div class="uk-grid uk-tile-muted">
+  <div class="uk-width-1-1">
+    <div class="uk-panel uk-padding uk-background-primary uk-light">
+      <a class="uk-logo" href="#">OpenIO Browser</a>
+
+    </div>
+  </div>
+  <hr class="uk-width-1-1 uk-margin"></hr>
+
+  <div class="uk-width-1-1 uk-margin-left">
+    <form class="uk-form-horizontal">
+      <div class="uk-inline">
+          <span class="uk-form-icon" uk-icon="icon: folder"></span>
+          <input ng-model="ccontainer.c" class="uk-input" placeholder="container name"></input>
+      </div>
+      <button class="uk-button uk-button-primary" ng-click="createContainer(ccontainer.c)">Create</button>
+    </form>
+  </div>
+  <hr class="uk-width-1-1 uk-margin"></hr>
+
+  <div class="uk-width-1-1">
+    <div class="uk-margin uk-card uk-card-default uk-card-body uk-card-small uk-card-hover"
+         ng-repeat='cont in containers'
+         ng-class="{'uk-card-primary': (cont[0] == currentCont)}"
+         ng-click="changeCurrentContainer(cont[0])">
+      <h4 class="uk-card-title">{{cont[0]}}</h4>
+      {{cont[1]}} files {{cont[2] | filesize}}
+    </div>
+  </div>
+</div>

@@ -1,25 +1,14 @@
-/*
-$clr-blue    : #1781ff;
-$clr-blue2   : #003366;
+.container-card {
+  cursor: pointer;
+}
+.container-card:hover {
+  transition: all 300ms;
+  background-color: #1e87f0;
+  color: white !important;
+}
 
-$clr-white   : #ffffff;
-$clr-coldgrey: #ced3d9;
-$clr-grey10  : #ecf0f1;
-$clr-grey15  : #d3dade;
-$clr-grey30  : #adb1b7;
-$clr-grey20  : #ffffcc;
-$clr-grey45  : #a6a6a6;
-$clr-grey55  : #959595;
-$clr-grey70  : #4d4d4d;
-$clr-black   : #000000;
 
-$clr-status-ok: #1781ff;
-$clr-status-pend : #f6931e;
-$clr-status-fail: #8b272d;
-*/
-
-.sidebar {
-  background: #ecf0f1;
+.fh {
   height: 100vh;
 }
 
