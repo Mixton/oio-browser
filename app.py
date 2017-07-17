@@ -46,7 +46,7 @@ API = init_sds_osapi(NAMESPACE, PROXY_URL)
 #API.container_create(ACCOUNT, "Work")
 API.container_create(ACCOUNT, "img")
 API.container_create(ACCOUNT, "static")
-API.object_create(ACCOUNT, "static", file_or_path="./no_image.png")
+#API.object_create(ACCOUNT, "static", file_or_path="./no_image.png")
 #API.object_create(ACCOUNT, "static", file_or_path="./openio.png")
 
 app = Flask(__name__, static_url_path='')
@@ -104,13 +104,15 @@ def preview_object(cont, obj):
         video_type = tuple(get_extensions_for_type('video'))
         if ext in img_type:
             headers = {
-                "Content-Disposition": "filename=%s" % meta['name']
+                "Content-Disposition": "filename=%s" % meta['name'],
+                "Cache-Control": 'public, max-age=3600'
             }
             return Response(stream, direct_passthrough=True,
                     mimetype=mimetypes.types_map[ext], headers=headers)
         elif ext in video_type:
             headers = {
-                "Content-Disposition": "inline; filename=%s" % meta['name']
+                "Content-Disposition": "inline; filename=%s" % meta['name'],
+                "Cache-Control": 'public, max-age=3600'
             }
             return Response(stream, direct_passthrough=True,
                     mimetype=mimetypes.types_map[ext], headers=headers)
@@ -118,7 +120,8 @@ def preview_object(cont, obj):
             #meta, stream = API.object_fetch(ACCOUNT, "static", obj="no_image.png")
             #ext = ".png"
             headers = {
-                "Content-Disposition": "filename=%s" % meta['name']
+                "Content-Disposition": "filename=%s" % meta['name'],
+                "Cache-Control": 'public, max-age=3600'
             }
             return Response(stream, direct_passthrough=True,
                     mimetype=mimetypes.types_map[ext], headers=headers)
@@ -126,7 +129,8 @@ def preview_object(cont, obj):
         meta, stream = API.object_fetch(ACCOUNT, "static", obj="no_image.png")
         ext = ".png"
         headers = {
-                "Content-Disposition": "filename=%s" % meta['name']
+                "Content-Disposition": "filename=%s" % meta['name'],
+                "Cache-Control": 'public, max-age=3600'
             }
         return Response(stream, direct_passthrough=True,
                     mimetype=mimetypes.types_map[ext], headers=headers)
@@ -234,9 +238,11 @@ def list_containers(marker=None):
         res = API.container_list(ACCOUNT, limit=200, marker=marker)
     except:
         return abort(404)
-    print res
+    #print res
     return jsonify({'containers': res})
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=BROWSER_PORT,threaded=True)
+    #app.run(host='0.0.0.0',port=BROWSER_PORT,threaded=True)
+    app.run(host='0.0.0.0',port=BROWSER_PORT)
+    API.object_create(ACCOUNT, "static", file_or_path="./no_image.png")
