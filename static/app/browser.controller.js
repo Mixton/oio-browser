@@ -34,8 +34,8 @@ function getController($scope, apiRequest, FileUploader) {
 
   (function() {
     $scope.apiRequest.getContainers(function(res) {
-      $scope.containers = res.data.containers[0];
-      $scope.currentCont = res.data.containers[0][0][0];
+      $scope.containers = res.data.containers;
+      $scope.currentCont = res.data.containers[0][0];
       $scope.containerInfo = res.data.info || "";
 
       getObjects($scope.currentCont);
