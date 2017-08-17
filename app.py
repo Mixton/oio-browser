@@ -238,7 +238,7 @@ def list_containers(marker=None):
         res = API.container_list(ACCOUNT, limit=200, marker=marker)
     except:
         return abort(404)
-    #print res
+    #print("containers list: %s"%res)
     return jsonify({'containers': res})
 
 
