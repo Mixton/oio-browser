@@ -109,7 +109,7 @@ function getController($scope, apiRequest, FileUploader) {
       $scope.uploader.url = '/api/containers/' + $scope.currentCont + '/objects';
       getObjects($scope.currentCont);
       $scope.apiRequest.getContainers(function(res) {
-        $scope.containers = res.data.containers[0];
+        $scope.containers = res.data.containers;
         $scope.containerInfo = res.data.info;
       });
       $scope.ccontainer.c ="";
