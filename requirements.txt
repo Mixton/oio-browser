@@ -1,2 +1,2 @@
 Flask >= 0.11.1
--e git://github.com/open-io/oio-sds.git@4.0.x#egg=openio-sds
+#-e git://github.com/open-io/oio-sds.git@4.0.x#egg=openio-sds
