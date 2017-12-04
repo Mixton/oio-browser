@@ -50,7 +50,7 @@ API.container_create(ACCOUNT, "static")
 #API.object_create(ACCOUNT, "static", file_or_path="./openio.png")
 
 app = Flask(__name__, static_url_path='')
-#app.debug = True
+app.debug = True
 if app.debug is not True:
     import logging
     from logging.handlers import RotatingFileHandler
